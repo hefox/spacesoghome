@@ -1,0 +1,27 @@
+<?php
+
+include_once('spacesoghome.features.inc');
+
+
+function spacesoghome_menu() {
+  $items['front'] =  array(
+    'title' => t('Home'),
+    'type' => MENU_CALLBACK,
+    'page callback' => 'spacesoghome',
+    'access arguments' => array('access content'),
+    'weight' => -10
+  );
+
+  return $items;
+}
+
+function spacesoghome () {
+  module_load_include('node','node.pages');
+  $space = spaces_get_space();
+  $gid = $space->sid;
+  if (!$gid) drupal_not_found();
+  
+  $node = node_load($gid);
+  menu_set_active_item('node/'.$gid);
+  return node_page_view($node);
+}
