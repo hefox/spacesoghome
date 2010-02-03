@@ -18,7 +18,7 @@ function spacesoghome_menu() {
 function spacesoghome () {
   module_load_include('node','node.pages');
   $space = spaces_get_space();
-  $gid = $space->sid;
+  $gid = $space->group->nid;
   if (!$gid) drupal_not_found();
   
   $node = node_load($gid);
