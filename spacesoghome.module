@@ -23,5 +23,9 @@ function spacesoghome () {
   
   $node = node_load($gid);
   menu_set_active_item('node/'.$gid);
+  if (module_exists('page_manager') && !variable_set('page_manager_node_view_disabled', TRUE)) {
+    require_once(drupal_get_path('module','page_manager').'/'.'plugins/tasks/node_view.inc');
+    return page_manager_node_view($node);
+  }
   return node_page_view($node);
 }
